@@ -1,4 +1,5 @@
 const express = require("express");
+const verifyToken = require('./validate_token');
 const router = express.Router();
 const Animal = require("../models/Animal");
 
@@ -67,3 +68,9 @@ router.delete("/:id", async (req, res) => {
 });
 
 module.exports = router;
+
+router.get("/animals", verifyToken, (req, res) => {
+  animalsSchema.find()
+    .then((data) => res.json(data))              // Devuelve todos los animales en formato JSON
+    .catch((error) => res.json({ message: error })); // Maneja errores
+});

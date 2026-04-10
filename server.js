@@ -2,13 +2,13 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-
+const authRoutes = require("./routes/authentication");
 const app = express();
 
 // Middleware
 app.use(cors());          // Permitir solicitudes CORS
 app.use(express.json());  // Permitir recibir datos JSON en el cuerpo de la solicitud
-
+app.use("/api", authRoutes);
 // Conectar a MongoDB
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB conectado"))
